@@ -34,6 +34,9 @@ public class FacultyLoop {
                 case "2":
                     displayFaculties();
                     break;
+                case "3":
+                    displayFacultiesByStudyFied();
+                    break;
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -47,14 +50,16 @@ public class FacultyLoop {
         return scanner.nextLine();
     }
 
-    private String getStudyFieldsOptions() {
+    private StudyField selectStudyField(String string) {
         StudyField[] temp = StudyField.values();
         String studyFields = "(|";
         for (int i = 0; i < temp.length; i++) {
             studyFields += (i+1) + ". " + temp[i].toString() + "|";
         }
         studyFields += ")";
-        return studyFields;
+        System.out.println(string);
+        System.out.print(studyFields + ": ");
+        return temp[Integer.parseInt(scanner.nextLine())];
     }
 
     private Date getDateInput(String string) {
@@ -73,20 +78,36 @@ public class FacultyLoop {
         StudyField[] studyField = StudyField.values();
         String name = getUserInput("Enter name: ");
         String abbreviation = getUserInput("Enter abbreviation: ");
-        int fieldIndex = Integer.parseInt(getUserInput("Enter the order number for the field of study\n"
-                + getStudyFieldsOptions() + ": "));
-        Faculty faculty = new Faculty(name, abbreviation, studyField[fieldIndex]);
+        Faculty faculty = new Faculty(name, abbreviation, selectStudyField("Enter the order number for the field of study"));
         university.addFaculty(faculty);
     }
 
     private void displayFaculties() {
         List<Faculty> faculties = university.getFaculties();
         for (int i = 0; i < faculties.size(); i++) {
-            System.out.println((i+1) + ". ");
-            String[] facultyDetails = faculties.get(i).getFacultyDetails();
-            System.out.println("Name: " + facultyDetails[0]);
-            System.out.println("Abbreviation: " + facultyDetails[1]);
-            System.out.println();
+            String[] strings = faculties.get(i).getFacultyDetails();
+            displayFaculty(strings, i);
         }
+    }
+
+    private void displayFacultiesByStudyFied() {
+        List<Faculty> faculties = university.getFaculties();
+        StudyField studyField = selectStudyField("Enter the order number for the field of study");
+        int index = 0;
+        for (int i = 0; i < faculties.size(); i++) {
+            String[] facultyDetails = faculties.get(i).getFacultyDetails();
+            if (facultyDetails[2].equals(studyField.toString())) {
+                index++;
+                displayFaculty(facultyDetails, index);
+            }
+        }
+    }
+
+    private void displayFaculty(String[] strings, int index) {
+        System.out.print((index+1) + ".  ");
+        System.out.println("Name: " + strings[0]);
+        System.out.println("\tAbbreviation: " + strings[1]);
+        System.out.println("\tStudy field: " + strings[2]);
+        System.out.println("\tNumber of students: " + strings[3] + "\n");
     }
 }
