@@ -10,12 +10,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class FacultyLoop {
+public class UniversityLoop {
     private Scanner scanner;
     private String command;
     private University university;
 
-    public FacultyLoop() {
+    public UniversityLoop() {
         this.university = new University();
         this.scanner = new Scanner(System.in);
         this.command = "";

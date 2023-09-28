@@ -1,18 +1,10 @@
 package Lab1;
 
-import Lab1.Classes.Faculty;
-import Lab1.Classes.StudyField;
-import Lab1.Loops.FacultyLoop;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
+import Lab1.Loops.UniversityLoop;
 
 public class Main {
     public static void main(String[] args) {
-        FacultyLoop facultyLoop = new FacultyLoop();
-        facultyLoop.run();
+        UniversityLoop universityLoop = new UniversityLoop();
+        universityLoop.run();
     }
 }
