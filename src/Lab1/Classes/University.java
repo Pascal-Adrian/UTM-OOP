@@ -7,7 +7,7 @@ public class University {
     private List<Faculty> faculties;
 
     public University () {
-        this.faculties = new ArrayList<>();
+        faculties = new ArrayList<>();
     }
 
     public void addFaculty(Faculty faculty) {
@@ -15,6 +15,6 @@ public class University {
     }
 
     public List<Faculty> getFaculties() {
-        return faculties;
+        return this.faculties;
     }
 }

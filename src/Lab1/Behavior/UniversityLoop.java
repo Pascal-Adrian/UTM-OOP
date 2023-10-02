@@ -1,6 +1,7 @@
-package Lab1.Loops;
+package Lab1.Behavior;
 
 import Lab1.Classes.Faculty;
+import Lab1.Classes.Student;
 import Lab1.Classes.StudyField;
 import Lab1.Classes.University;
 
@@ -45,7 +46,8 @@ public class UniversityLoop {
         scanner.close();
     }
 
-    private String getUserInput(String string) {
+
+    public String getUserInput(String string) {
         System.out.print(string);
         return scanner.nextLine();
     }
@@ -60,18 +62,6 @@ public class UniversityLoop {
         System.out.println(string);
         System.out.print(studyFields + ": ");
         return temp[Integer.parseInt(scanner.nextLine())];
-    }
-
-    private Date getDateInput(String string) {
-        while (true) {
-            String intermediateString = scanner.nextLine();
-            try {
-                Date enrollmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(intermediateString);
-                return enrollmentDate;
-            } catch (ParseException e) {
-                System.out.println("Invalid time format. Enter new value: ");
-            }
-        }
     }
 
     private void createFaculty() {
@@ -109,5 +99,28 @@ public class UniversityLoop {
         System.out.println("\tAbbreviation: " + strings[1]);
         System.out.println("\tStudy field: " + strings[2]);
         System.out.println("\tNumber of students: " + strings[3] + "\n");
+    }
+
+
+    private Student getStudent() {
+        String firstName = getUserInput("First name: ");
+        String lastName = getUserInput("Last name: ");
+        String email = getUserInput("Email: ");
+        Date enrollmentDate = getDate("Enrollment date: ");
+        Date dateOfBirth = getDate("Date of birth: ");
+        Student student = new Student(firstName, lastName, email, enrollmentDate, dateOfBirth);
+        return student;
+    }
+
+    public Date getDate(String string) {
+        while (true) {
+            String dateString =getUserInput(string);
+            try {
+                Date enrollmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+                return enrollmentDate;
+            } catch (ParseException e) {
+                System.out.println("Invalid time format. Enter new value: ");
+            }
+        }
     }
 }
