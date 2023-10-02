@@ -1,4 +1,4 @@
-package Lab1.Classes;
+package Lab1.Models;
 
 public enum StudyField {
     MECHANICAL_ENGINEERING,
