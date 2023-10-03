@@ -3,16 +3,19 @@ package Lab1.Behavior;
 import Lab1.Models.Faculty;
 import Lab1.Models.StudyField;
 import Lab1.Models.University;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class UniversityLoop {
-    private final Scanner scanner;
+    private Scanner scanner;
     private String command;
-    private final University university;
-    private final User user;
+    private University university;
+    private User user;
+    private Parser parser;
 
     public UniversityLoop() {
+        this.parser = new Parser();
         this.university = new University();
         this.scanner = new Scanner(System.in);
         this.command = "";
@@ -20,33 +23,51 @@ public class UniversityLoop {
     }
 
     public void run() {
+        System.out.println("Loading data...");
+        university = parser.getUniversityFromFile();
+        System.out.println("(Enter h for help)");
         while (!this.command.equals("q")) {
-            String[] commands = user.readInput("Enter command -> ").split("/");
+            String[] commands = user.readInput("(Enter command) -> ").split("/");
             this.command = commands[0];
             switch (this.command) {
-                case "q" -> {return;}
+                case "h" -> {
+                    System.out.print("""
+                            cf    -  create a new faculty (data can be introduced through "/" after the command)
+                            df    -  display faculties
+                            dsfs  -  display the faculties of a study field
+                            ssf   -  search student's faculty by its email
+                            of    -  choose faculty and open faculty specific menu
+                            q     -  quit
+                            
+                            h - help
+                            """);
+                }
+                case "q" -> {}
                 case "cf" -> handleCreateFaculty(commands);
                 case "df" -> displayFaculties();
                 case "dfsf" -> displayFacultiesByStudyField();
-                case "ssf" -> System.out.println(searchStudentFaculty(user.readInput("Enter email: ")));
+                case "ssf" -> System.out.println(searchStudentFaculty(user.readInput("(Enter email) -> ")));
                 case "of" -> {
-                    FacultyLoop facultyLoop = new FacultyLoop(university.getFaculties().get(getFacultyByAbbreviations()));
+                    FacultyLoop facultyLoop = new FacultyLoop(this.university.getFaculties().get(getFacultyByAbbreviations()));
                     facultyLoop.run();
                 }
-                default -> System.out.println("Invalid input");
+                default -> System.out.println("(\"" + this.command +
+                        "\" is not a valid command. Enter h for help.)");
             }
         }
+        System.out.println("Saving data...");
+        this.parser.saveUniversityToFile(this.university);
+        this.user.closeScanner();
         scanner.close();
     }
 
     private StudyField selectStudyField() {
         StudyField[] temp = StudyField.values();
-        String studyFields = "| ";
+        String studyFields = " | ";
         for (int i = 0; i < temp.length; i++) {
-            studyFields = studyFields.concat((i + 1) + ". " + temp[i] + "| ");
+            studyFields = studyFields.concat((i + 1) + ". " + temp[i] + " | ");
         }
-        studyFields += ": ";
-        System.out.println("Enter the index of the field of study");
+        studyFields += "\nEnter the index of the field of study: ";
         System.out.print(studyFields);
         return temp[Integer.parseInt(scanner.nextLine()) - 1];
     }
@@ -106,11 +127,11 @@ public class UniversityLoop {
 
     private int getFacultyByAbbreviations() {
        List<Faculty> faculties = this.university.getFaculties();
-       String abbreviations = "Enter the index of the faculty you want to open\n| ";
+       String abbreviations = "| ";
         for (int i = 0; i < faculties.size(); i++) {
             abbreviations = abbreviations.concat((i + 1) + ". " + faculties.get(i).getAbbreviation() + " | ");
         }
-        abbreviations = abbreviations.concat(": ");
+        abbreviations = abbreviations.concat("\nEnter the index of the faculty you want to open: ");
         return Integer.parseInt(user.readInput(abbreviations)) - 1;
     }
 }
