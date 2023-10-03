@@ -16,6 +16,7 @@ public class Faculty {
         this.abbreviation = abbreviation;
         this.studyField = studyField;
         this.students = new ArrayList<>();
+        this.graduatedStudents = new ArrayList<>();
     }
 
     public void addStudent(Student student) {
@@ -46,13 +47,13 @@ public class Faculty {
     public void graduateStudent(String email) {
         for (Student student:
                 students) {
-            if (checkStudentByEmail(email)) {
+            if (student.getEmail().equals(email)) {
                 graduatedStudents.add(student);
                 students.remove(student);
-            } else {
-                System.out.println("No student with such email.");
+                return;
             }
         }
+        System.out.println("No student with such email.");
     }
     
     public boolean checkStudentByEmail(String email) {
