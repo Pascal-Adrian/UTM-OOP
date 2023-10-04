@@ -85,10 +85,18 @@ public class FileManager {
             int count = 0;
             while (line != null) {
                 count++;
-                faculty.graduateStudent(line);
+                if (faculty.checkEnrolledStudentByEmail(line)) {
+                    faculty.graduateStudent(line);
+                } else {
+                    exceptions = exceptions.concat(count + ", ");
+                }
                 line = reader.readLine();
             }
-            this.lastMessage = "(Graduated all students.)";
+            if (exceptions.isEmpty()) {
+                this.lastMessage = "(Graduated all students.)";
+            } else {
+                this.lastMessage = "(Graduated all but unexpected values at " + exceptions + ")";
+            }
             reader.close();
         } catch (Exception e) {
             this.lastMessage = "[FileManager Error] (Failed to read data.)";

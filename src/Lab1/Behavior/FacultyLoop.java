@@ -158,7 +158,7 @@ public class FacultyLoop {
 
     private void graduateStudent() {
         String email = user.readInput("Enter students email: ");
-        if (this.faculty.checkStudentByEmail(email)){
+        if (this.faculty.checkEnrolledStudentByEmail(email)){
             this.faculty.graduateStudent(email);
             System.out.println("\n" + loopIdentifier + " (Student graduated successfully.)\n");
             logData[2] = "Graduated student by email (" + email + ")";

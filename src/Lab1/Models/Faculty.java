@@ -73,6 +73,16 @@ public class Faculty implements Serializable {
         return false;
     }
 
+    public boolean checkEnrolledStudentByEmail(String email) {
+        for (Student student:
+                students) {
+            if (student.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Student> getGraduatedStudents() {
         return graduatedStudents;
     }
