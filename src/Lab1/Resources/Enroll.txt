@@ -1,0 +1,10 @@
+Sophie/Adams/sophie.adams@ta.example.md/2023-09-01/1995-02-20
+Michael/Brown/michael.brown@ta.example.md/2023-09-01/1990-04-12
+Charlotte/Campbell/charlotte.campbell@ta.example.md/2023-09-01/1999-11-05
+Lucas/Diaz/lucas.diaz@ta.example.md/2023-09-01/1987-09-15
+Grace/Evans/grace.evans@ta.example.md/2023-09-01/1993-12-25
+Liam/Fisher/liam.fisher@ta.example.md/2023-09-01/2002-07-08
+Olivia/Green/olivia.green@ta.example.md/2023-09-01/1988-03-02
+Ethan/Hall/ethan.hall@ta.example.md/2023-09-01/1996-06-18
+Isabella/Irwin/isabella.irwin@ta.example.md/2023-09-01/1991-10-30
+Ava/Johnson/ava.johnson@ta.example.md/2023-09-01/1985-08-09

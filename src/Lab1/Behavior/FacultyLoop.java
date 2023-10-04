@@ -15,6 +15,7 @@ public class FacultyLoop {
     private String loopIdentifier;
     private LogManager logManager;
     private String[] logData;
+    private FileManager fileManager;
 
     public FacultyLoop(Faculty faculty) {
         this.faculty = faculty;
@@ -22,6 +23,7 @@ public class FacultyLoop {
         this.loopIdentifier = "[" + faculty.getAbbreviation() + "]";
         this.logManager = new LogManager();
         this.logData = new String[3]; Arrays.fill(this.logData, "");
+        this.fileManager = new FileManager();
         this.command = "";
     }
 
@@ -54,7 +56,7 @@ public class FacultyLoop {
                 case "qf" -> this.logData[2] = "Quit faculty loop";
                 case "es" -> handleStudentEnroll(commands);
                 case "cse" -> checkStudentByEmail();
-                case "gs" -> graduateStudent();
+                case "gs" -> handleStudentGraduation(commands);
                 case "ds" -> displayStudents();
                 case "dgs"-> displayGraduatedStudents();
                 default -> {
@@ -86,7 +88,7 @@ public class FacultyLoop {
         logData[2] = "Created and enrolled student manually: " + firstName + " " + lastName;
     }
 
-    public void handleStudentEnroll(String[] data) {
+    private void handleStudentEnroll(String[] data) {
         if (data.length == 6) {
             try {
                 faculty.addStudent(new Student(data[1], data[2], data[3],
@@ -97,6 +99,10 @@ public class FacultyLoop {
                 logData[2] = "Tried and could not create student";
                 System.out.println("\n" + loopIdentifier + " (Could not create student)\n");
             }
+        } else if (data.length == 2) {
+            fileManager.getStudentsFromTxt(this.faculty, data[1]);
+            System.out.println("\n" + loopIdentifier + " " + fileManager.getLastMessage() + "\n");
+            logData[2] = "Read students from txt";
         } else {
             enrollStudent();
         }
@@ -159,6 +165,17 @@ public class FacultyLoop {
         } else {
             System.out.println("\n" + loopIdentifier + " (No enrolled student with this email.)");
             logData[2] = "No enrolled student with this email (" + email + ")";
+        }
+    }
+
+
+    private void handleStudentGraduation(String data[]) {
+        if (data.length == 2) {
+            fileManager.graduateStudentsFromTxt(this.faculty, data[1]);
+            System.out.println("\n" + loopIdentifier + " " + fileManager.getLastMessage() + "\n");
+            this.logData[2] = "Graduated students from txt";
+        } else {
+            graduateStudent();
         }
     }
 }
