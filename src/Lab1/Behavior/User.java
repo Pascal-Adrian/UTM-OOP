@@ -15,17 +15,6 @@ public class User {
         return scanner.nextLine();
     }
 
-    public LocalDate readDate(String string) {
-        while (true) {
-            String dateString = readInput(string);
-            try {
-                return LocalDate.parse(dateString);
-            } catch (DateTimeParseException e) {
-                System.out.println("(Invalid time format.)\nEnter new value (yyyy-mm-dd): ");
-            }
-        }
-    }
-
     public void closeScanner() {
         scanner.close();
     }

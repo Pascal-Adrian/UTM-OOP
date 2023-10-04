@@ -1,12 +1,18 @@
 package Lab1.Behavior;
 
-import Lab1.Models.Faculty;
-import Lab1.Models.Student;
 import Lab1.Models.University;
 
 import java.io.*;
 
-public class Parser {
+public class FileManager {
+
+    private String lastMessage;
+    private String directory;
+
+    public FileManager() {
+        this.lastMessage = "";
+        this.directory = "src/Lab1/Resources/";
+    }
 
     public void saveUniversityToFile(University university) {
         try {
@@ -15,11 +21,9 @@ public class Parser {
             out.writeObject(university);
             out.close();
             fileOut.close();
-            System.out.println("University saved successfully!");
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println("!!File Not Found!!");
-        } catch (IOException ioException) {
-            System.out.println("!!IO Exception!!");
+            this.lastMessage = "[FileManager] (University saved successfully.)";
+        } catch (Exception e) {
+            this.lastMessage = "[FileManager Error] (Could not access the file.)";
         }
     }
     public University getUniversityFromFile() {
@@ -30,12 +34,14 @@ public class Parser {
             university = (University) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("University loaded successfully!\n\n");
-        } catch (IOException ioException) {
-            System.out.println("!!IOException!!");
-        } catch (ClassNotFoundException classNotFoundException) {
-            System.out.println("!!University Class Not Found!!");
+            this.lastMessage = "[FileManager] University loaded successfully!";
+        } catch (Exception e) {
+            this.lastMessage = "[FileManager Error] (Could not access the file.)";
         }
         return university;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
     }
 }

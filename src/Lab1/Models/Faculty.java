@@ -64,6 +64,12 @@ public class Faculty implements Serializable {
                 return true;
             }
         }
+        for (Student student:
+                graduatedStudents) {
+            if (student.getEmail().equals(email)) {
+                return true;
+            }
+        }
         return false;
     }
 
