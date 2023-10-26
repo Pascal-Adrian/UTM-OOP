@@ -1,13 +1,24 @@
 package Lab2.Models;
 
-public class File {
-    private String name;
-    private String extension;
-    private String identifier;
+import java.time.LocalDate;
 
-    public File(String name, String extension, String identifier) {
-        this.name = name;
+public class File {
+    private java.io.File file;
+    private String filename;
+    private String extension;
+    private LocalDate dateCreated;
+    private LocalDate dateModified;
+
+    public File(String filename, String extension, String path) {
+        this.filename = filename;
         this.extension = extension;
-        this.identifier = identifier;
+        this.file = new java.io.File(path);
+        this.dateCreated = LocalDate.now();
+        this.dateModified = this.dateCreated;
     }
+
+    public String getInfo() {
+        return "Name: " + filename + "\nExtension: " + extension + "\nCreated: " + dateCreated + "\nModified: " + dateModified;
+    }
+
 }

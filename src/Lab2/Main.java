@@ -1,5 +1,7 @@
 package Lab2;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -22,6 +24,17 @@ public class Main {
                     }
 
                     System.out.println("File: " + fileName + ", Type: " + fileType);
+
+                    if (fileType != null && fileType.startsWith("image/")) {
+                        try {
+                            BufferedImage image = ImageIO.read(file.toFile());
+                            int width = image.getWidth();
+                            int height = image.getHeight();
+                            System.out.println("  Size: " + width + "x" + height + " pixels");
+                        } catch (IOException e) {
+                            System.out.println("  Failed to read image dimensions.");
+                        }
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

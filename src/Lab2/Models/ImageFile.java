@@ -1,7 +1,7 @@
 package Lab2.Models;
 
 public class ImageFile extends File{
-    private ImageFile (String name, String extension, String identifier) {
-        super(name, extension, identifier);
+    public ImageFile(String filename, String extension, String path) {
+        super(filename, extension, path);
     }
 }
