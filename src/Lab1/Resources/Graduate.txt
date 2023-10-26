@@ -1,5 +1,5 @@
-emily.johnson@imit.example.md
-james.smith@imit.example.md
-sophia.williams@imit.example.md
-liam.davis@imit.example.md
-olivia.martin@imit.example.md
+emma.smith@cim.example.md
+daniel.johnson@cim.example.md
+olivia.davis@cim.example.md
+william.martin@cim.example.md
+sophia.anderson@cim.example.md
