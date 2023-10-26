@@ -1,6 +1,8 @@
 package Lab2.Models;
 
+import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class File {
     private java.io.File file;
@@ -8,6 +10,8 @@ public class File {
     private String extension;
     private LocalDate dateCreated;
     private LocalDate dateModified;
+    private byte[] previousState;
+    private byte[] currentState;
 
     public File(String filename, String extension, String path) {
         this.filename = filename;
@@ -15,6 +19,8 @@ public class File {
         this.file = new java.io.File(path);
         this.dateCreated = LocalDate.now();
         this.dateModified = this.dateCreated;
+        this.updateState();
+        this.updateState();
     }
 
     public String getInfo() {
@@ -23,5 +29,18 @@ public class File {
 
     public java.io.File getFile() {
         return this.file;
+    }
+
+    public void updateState() {
+        this.previousState = Arrays.copyOf(this.currentState, this.currentState.length);
+        try {
+            this.currentState = Files.readAllBytes(this.file.toPath());
+        } catch (Exception e) {
+            System.out.println("Failed to update file state.");
+        }
+    }
+
+    public boolean isModified() {
+        return !Arrays.equals(this.previousState, this.currentState);
     }
 }
