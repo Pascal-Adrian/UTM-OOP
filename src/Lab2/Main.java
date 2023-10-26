@@ -2,6 +2,7 @@ package Lab2;
 
 import Lab2.Models.File;
 import Lab2.Models.ImageFile;
+import Lab2.Models.TextFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -33,6 +34,8 @@ public class Main {
                     String path = directory+"/"+fileName;
                     if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) {
                         files.add(new ImageFile(fileName, extension, path));
+                    } else if (extension.equals("txt")) {
+                        files.add(new TextFile(fileName, extension, path));
                     } else {
                         files.add(new File(fileName, extension, path));
                     }

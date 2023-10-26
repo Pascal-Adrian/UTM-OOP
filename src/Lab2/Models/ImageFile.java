@@ -11,6 +11,10 @@ public class ImageFile extends File{
         this.getImageDimensions();
     }
 
+    public String getInfo() {
+        return super.getInfo() + "\nSize: " + this.width + "x" + this.height + "px";
+    }
+
     private void getImageDimensions() {
         try {
             BufferedImage image = ImageIO.read(super.getFile());
@@ -19,10 +23,5 @@ public class ImageFile extends File{
         } catch (Exception e) {
             System.out.println("  Failed to read image dimensions.");
         }
-    }
-
-    @Override
-    public String getInfo() {
-        return super.getInfo() + "\nSize: " + this.width + "x" + this.height + "px";
     }
 }
