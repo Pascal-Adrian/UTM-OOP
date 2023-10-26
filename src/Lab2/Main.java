@@ -21,34 +21,30 @@ public class Main {
         String directory = "src/Lab2/Resources/MainDirectory";
         Path directoryPath = Paths.get(directory);
 
-        // Check if the specified path is a directory
-        if (Files.isDirectory(directoryPath)) {
-            try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)) {
-                for (Path file : directoryStream) {
-                    String fileName = file.getFileName().toString();
-                    String fileType = Files.probeContentType(file);
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)) {
+            for (Path file : directoryStream) {
+                String fileName = file.getFileName().toString();
+                String fileType = Files.probeContentType(file);
 
-                    if (fileType == null) {
-                        fileType = "Unknown";
-                    }
-                    String extension = fileName.substring(fileName.indexOf('.') + 1);
-                    String path = directory+"/"+fileName;
-                    if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) {
-                        files.add(new ImageFile(fileName, extension, path));
-                    } else if (extension.equals("txt")) {
-                        files.add(new TextFile(fileName, extension, path));
-                    } else if (extension.equals("java")) {
-                        files.add(new ProgramFile(fileName, extension, path));
-                    }   else {
-                        files.add(new File(fileName, extension, path));
-                    }
+                if (fileType == null) {
+                    fileType = "Unknown";
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+                String extension = fileName.substring(fileName.indexOf('.') + 1);
+                String path = directory+"/"+fileName;
+                if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) {
+                    files.add(new ImageFile(fileName, extension, path));
+                } else if (extension.equals("txt")) {
+                    files.add(new TextFile(fileName, extension, path));
+                } else if (extension.equals("java")) {
+                    files.add(new ProgramFile(fileName, extension, path));
+                }   else {
+                    files.add(new File(fileName, extension, path));
+                }
             }
-        } else {
-            System.out.println("The specified path is not a directory.");
+        } catch (IOException e) {
+            System.out.println("Failed to read directory.");
         }
+
         for (File file : files) {
             System.out.println(file.getInfo());
         }

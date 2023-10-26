@@ -19,8 +19,7 @@ public class File {
         this.file = new java.io.File(path);
         this.dateCreated = LocalDate.now();
         this.dateModified = this.dateCreated;
-        this.updateState();
-        this.updateState();
+        this.initializeState();
     }
 
     public String getInfo() {
@@ -37,6 +36,14 @@ public class File {
             this.currentState = Files.readAllBytes(this.file.toPath());
         } catch (Exception e) {
             System.out.println("Failed to update file state.");
+        }
+    }
+
+    private void initializeState() {
+        try {
+            this.currentState = Files.readAllBytes(this.file.toPath());
+        } catch (Exception e) {
+            System.out.println("Failed to initialize file state.");
         }
     }
 
