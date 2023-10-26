@@ -2,6 +2,7 @@ package Lab2;
 
 import Lab2.Models.File;
 import Lab2.Models.ImageFile;
+import Lab2.Models.ProgramFile;
 import Lab2.Models.TextFile;
 
 import javax.imageio.ImageIO;
@@ -36,7 +37,9 @@ public class Main {
                         files.add(new ImageFile(fileName, extension, path));
                     } else if (extension.equals("txt")) {
                         files.add(new TextFile(fileName, extension, path));
-                    } else {
+                    } else if (extension.equals("java")) {
+                        files.add(new ProgramFile(fileName, extension, path));
+                    }   else {
                         files.add(new File(fileName, extension, path));
                     }
                 }

@@ -11,6 +11,7 @@ public class ImageFile extends File{
         this.getImageDimensions();
     }
 
+    @Override
     public String getInfo() {
         return super.getInfo() + "\nSize: " + this.width + "x" + this.height + "px";
     }

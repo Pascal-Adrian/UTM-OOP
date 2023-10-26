@@ -9,6 +9,7 @@ public class TextFile extends File {
         this.count();
     }
 
+    @Override
     public String getInfo() {
         return super.getInfo() + "\nLines: " + this.lineCount + "\nWords: " + this.wordCount + "\nCharacters: " + this.characterCount;
     }
@@ -25,7 +26,7 @@ public class TextFile extends File {
             while ((line = bufferedReader.readLine()) != null) {
                 lines++;
                 characters += line.length();
-                String[] wordsInLine = line.split("\\s+"); // Split the line into words based on whitespace
+                String[] wordsInLine = line.split("\\s+");
                 words += wordsInLine.length;
             }
 
