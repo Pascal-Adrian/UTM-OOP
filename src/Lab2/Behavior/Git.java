@@ -31,21 +31,13 @@ public class Git {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)) {
             for (Path file : directoryStream) {
                 String fileName = file.getFileName().toString();
-                String fileType = Files.probeContentType(file);
-
-                if (fileType == null) {
-                    fileType = "Unknown";
-                }
-                String extension = fileName.substring(fileName.indexOf('.') + 1);
+                String extension = fileName.substring(fileName.indexOf('.') );
                 String path = directory+"/"+fileName;
-                if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) {
-                    files.add(new ImageFile(fileName, extension, path));
-                } else if (extension.equals("txt")) {
-                    files.add(new TextFile(fileName, extension, path));
-                } else if (extension.equals("java")) {
-                    files.add(new ProgramFile(fileName, extension, path));
-                }   else {
-                    files.add(new File(fileName, extension, path));
+                switch (extension) {
+                    case ".jpeg", ".jpg", ".png" -> files.add(new ImageFile(fileName, extension, path));
+                    case ".txt" -> files.add(new TextFile(fileName, extension, path));
+                    case ".java" -> files.add(new ProgramFile(fileName, extension, path));
+                    default -> files.add(new File(fileName, extension, path));
                 }
             }
         } catch (IOException e) {
