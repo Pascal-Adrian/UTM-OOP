@@ -18,8 +18,7 @@ public class File {
         this.extension = extension;
         this.file = new java.io.File(path);
         this.dateCreated = LocalDate.now();
-        this.dateModified = this.dateCreated;
-        this.initializeState();
+        this.resetState();
     }
 
     public String getInfo() {
@@ -30,7 +29,7 @@ public class File {
         return this.file;
     }
 
-    public void updateState() {
+    private void updateState() {
         this.previousState = Arrays.copyOf(this.currentState, this.currentState.length);
         try {
             this.currentState = Files.readAllBytes(this.file.toPath());
@@ -42,12 +41,19 @@ public class File {
     private void initializeState() {
         try {
             this.currentState = Files.readAllBytes(this.file.toPath());
+            this.previousState = Arrays.copyOf(this.currentState, this.currentState.length);
         } catch (Exception e) {
             System.out.println("Failed to initialize file state.");
         }
     }
 
     public boolean isModified() {
+        this.updateState();
         return !Arrays.equals(this.previousState, this.currentState);
+    }
+
+    public void resetState() {
+        this.dateModified = LocalDate.now();
+        this.initializeState();
     }
 }

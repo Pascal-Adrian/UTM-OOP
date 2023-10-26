@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,9 +45,24 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Failed to read directory.");
         }
-
-        for (File file : files) {
-            System.out.println(file.getInfo());
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("q")) {
+            System.out.print("> ");
+            input = scanner.nextLine();
+            switch (input) {
+                case "status":
+                    for (File file : files) {
+                        System.out.println(file.getInfo());
+                        if (file.isModified()) {
+                            System.out.println("  File has been modified.");
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid command.");
+                    break;
+            }
         }
     }
 }
