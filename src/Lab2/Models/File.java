@@ -21,4 +21,7 @@ public class File {
         return "Name: " + filename + "\nExtension: " + extension + "\nCreated: " + dateCreated + "\nModified: " + dateModified;
     }
 
+    public java.io.File getFile() {
+        return this.file;
+    }
 }
