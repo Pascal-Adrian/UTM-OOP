@@ -22,7 +22,7 @@ public class File {
     }
 
     public String getInfo() {
-        return "Name: " + this.filename + "\nExtension: " + this.extension + "\nCreated: " + this.dateCreated + "\nModified: " + this.dateUpdtated;
+        return "File name/" + this.filename + "/Extension/" + this.extension + "/Created/" + this.dateCreated + "/Updated/" + this.dateUpdtated;
     }
 
     public java.io.File getFile() {
@@ -49,5 +49,9 @@ public class File {
             System.out.println("Failed to check if file is modified.");
             return false;
         }
+    }
+
+    public String getFilename() {
+        return this.filename;
     }
 }

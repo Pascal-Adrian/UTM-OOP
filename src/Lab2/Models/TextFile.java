@@ -11,7 +11,7 @@ public class TextFile extends File {
 
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nLines: " + this.lineCount + "\nWords: " + this.wordCount + "\nCharacters: " + this.characterCount;
+        return super.getInfo() + "/Lines/" + this.lineCount + "/Words/" + this.wordCount + "/Characters/" + this.characterCount;
     }
 
     private void count() {

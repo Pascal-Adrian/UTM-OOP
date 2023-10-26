@@ -15,7 +15,7 @@ public class ProgramFile extends File{
 
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nLines: " + this.lineCount + "\nClasses: " + this.classCount + "\nMethods: " + this.methodCount;
+        return super.getInfo() + "/Lines/" + this.lineCount + "/Classes/" + this.classCount + "/Methods/" + this.methodCount;
     }
 
     private void count() {

@@ -13,7 +13,7 @@ public class ImageFile extends File{
 
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nSize: " + this.width + "x" + this.height + "px";
+        return super.getInfo() + "/Size/" + this.width + "x" + this.height + "px";
     }
 
     private void getImageDimensions() {
