@@ -12,7 +12,6 @@ public class File {
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdtated;
     private byte[] currentState;
-    private boolean isNew;
 
     public File(String filename, String extension, String path) {
         this.filename = filename;
@@ -20,7 +19,6 @@ public class File {
         this.file = new java.io.File(path);
         this.dateCreated = LocalDateTime.now();
         this.updateState();
-        this.isNew = true;
     }
 
     public String getInfo() {
@@ -35,7 +33,6 @@ public class File {
         try {
             this.currentState = Files.readAllBytes(this.file.toPath());
             this.dateUpdtated = LocalDateTime.now();
-            this.isNew = false;
         } catch (Exception e) {
             System.out.println("Failed to update file state.");
         }
@@ -43,11 +40,7 @@ public class File {
 
     public boolean isModified() {
         try {
-            if (Arrays.equals(this.currentState, Files.readAllBytes(this.file.toPath()))) {
-                return false;
-            } else {
-                return true;
-            }
+            return !Arrays.equals(this.currentState, Files.readAllBytes(this.file.toPath()));
         } catch (Exception e) {
             System.out.println("Failed to check if file is modified.");
             return false;

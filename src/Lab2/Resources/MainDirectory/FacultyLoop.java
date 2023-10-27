@@ -171,7 +171,7 @@ public class FacultyLoop {
     }
 
 
-    private void handleStudentGraduation(String data[]) {
+    private void handleStudentGraduation(String[] data) {
         if (data.length == 2) {
             fileManager.graduateStudentsFromTxt(this.faculty, data[1]);
             System.out.println("\n" + loopIdentifier + " " + fileManager.getLastMessage() + "\n");
