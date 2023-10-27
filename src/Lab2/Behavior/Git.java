@@ -20,6 +20,7 @@ public class Git {
     private String directory;
     private Path directoryPath;
     private Scanner scanner;
+    private String[] prevList;
     private String[] currList;
     private String[] queueList;
     private List<File> deleteQueue;
@@ -37,6 +38,7 @@ public class Git {
         this.deleteQueue = new ArrayList<>();
         this.addQueue = new ArrayList<>();
         this.queueList = new String[0];
+        this.prevList = new String[0];
         this.isChecking = true;
     }
     public void run() {
@@ -53,7 +55,7 @@ public class Git {
             switch (message) {
                 case "q" -> System.out.println("Exiting...");
                 case "status" -> status();
-                case "commit" -> commit(true);
+                case "commit" -> manualCommit();
                 case "info" -> info(filename);
                 case "admin" -> displayFiles();
                 default -> System.out.println("Invalid command.");
@@ -64,38 +66,42 @@ public class Git {
     }
 
     public void backgroundRun() {
-        while (this.isChecking) {
-            this.commit(false);
-            try {
-                Thread.sleep(5000);
-            } catch (Exception e) {
-                System.out.println("Failed to sleep.");
+        this.checkDirectory();
+        List<File> temp = new ArrayList<>();
+        temp.addAll(this.files);
+        temp.addAll(this.addQueue);
+        boolean foundChange = false;
+        String info = "";
+        for (File file : temp) {
+            String filename = file.getFilename();
+            info = info.concat(filename);
+            if (contains(prevList, filename) && contains(this.queueList, filename)) {
+                if (file.isModified()) {
+                    info = info.concat(" - Changed\n");
+                    foundChange = true;
+                    this.resetQueue.add(file);
+                } else {
+                    info = info.concat(" - Unchanged\n");
+                }
+            } else if (contains(prevList, filename)) {
+                info = info.concat(" - Deleted\n");
+                foundChange = true;
+                this.deleteQueue.add(file);
+            } else {
+                info = info.concat(" - Added\n");
+                foundChange = true;
             }
         }
+        if (foundChange) {
+            System.out.println("Auto commit at " + LocalDateTime.now() + ".");
+            System.out.println(info);
+            System.out.print("> ");
+        }
+        commit();
     }
 
     private void status() {
-        String[] prevList = Arrays.copyOf(this.currList, this.currList.length);
-        this.queueList = new String[0];
-        this.addQueue.clear();
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)){
-            for (Path file: directoryStream) {
-                String fileName = file.getFileName().toString();
-                this.queueList = pushToArray(this.queueList, fileName);
-                if (!contains(prevList, fileName)) {
-                    String extension = fileName.substring(fileName.indexOf('.') );
-                    String path = directory+"/"+fileName;
-                    switch (extension) {
-                        case ".jpeg", ".jpg", ".png" -> this.addQueue.add(new ImageFile(fileName, extension, path));
-                        case ".txt" -> this.addQueue.add(new TextFile(fileName, extension, path));
-                        case ".java" -> this.addQueue.add(new ProgramFile(fileName, extension, path));
-                        default -> this.addQueue.add(new File(fileName, extension, path));
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to read directory.");
-        }
+        this.checkDirectory();
         List<File> temp = new ArrayList<>();
         temp.addAll(this.files);
         temp.addAll(this.addQueue);
@@ -118,22 +124,45 @@ public class Git {
         }
     }
 
-    private void commit(boolean type) {
-        if (type) {
-            System.out.println("Commited at " + LocalDateTime.now() + ".");
-        } else {
-            System.out.println("Auto commit at " + LocalDateTime.now() + ".");
-        }
-        this.status();
+    private void commit() {
         for (File file : this.resetQueue) {
             file.updateState();
         }
         this.files.addAll(this.addQueue);
         this.files.removeAll(this.deleteQueue);
-        resetQueue.clear();
-        deleteQueue.clear();
+        this.resetQueue.clear();
+        this.deleteQueue.clear();
         this.currList = Arrays.copyOf(this.queueList, this.queueList.length);
-        System.out.print("> ");
+    }
+
+    private void manualCommit() {
+        System.out.println("Commited at " + LocalDateTime.now() + ".");
+        this.status();
+        this.commit();
+    }
+
+    private void checkDirectory() {
+        this.prevList = Arrays.copyOf(this.currList, this.currList.length);
+        this.queueList = new String[0];
+        this.addQueue.clear();
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)){
+            for (Path file: directoryStream) {
+                String fileName = file.getFileName().toString();
+                this.queueList = pushToArray(this.queueList, fileName);
+                if (!contains(this.prevList, fileName)) {
+                    String extension = fileName.substring(fileName.indexOf('.') );
+                    String path = directory+"/"+fileName;
+                    switch (extension) {
+                        case ".jpeg", ".jpg", ".png" -> this.addQueue.add(new ImageFile(fileName, extension, path));
+                        case ".txt" -> this.addQueue.add(new TextFile(fileName, extension, path));
+                        case ".java" -> this.addQueue.add(new ProgramFile(fileName, extension, path));
+                        default -> this.addQueue.add(new File(fileName, extension, path));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to read directory.");
+        }
     }
 
     private void info(String filename) {
