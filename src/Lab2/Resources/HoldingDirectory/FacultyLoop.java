@@ -1,4 +1,4 @@
-package Lab2.Resources.MainDirectory;
+package Lab2.Resources.HoldingDirectory;
 
 import Lab1.Behavior.FileManager;
 import Lab1.Behavior.LogManager;
