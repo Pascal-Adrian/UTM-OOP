@@ -25,6 +25,7 @@ public class Git {
     private List<File> deleteQueue;
     private List<File> resetQueue;
     private List<File> addQueue;
+    private boolean isChecking;
 
     public Git() {
         this.files = new ArrayList<>();
@@ -36,9 +37,9 @@ public class Git {
         this.deleteQueue = new ArrayList<>();
         this.addQueue = new ArrayList<>();
         this.queueList = new String[0];
+        this.isChecking = true;
     }
     public void run() {
-        this.status();
         String message = "";
         String[] input;
         while (!message.equals("q")) {
@@ -52,13 +53,25 @@ public class Git {
             switch (message) {
                 case "q" -> System.out.println("Exiting...");
                 case "status" -> status();
-                case "commit" -> commit();
+                case "commit" -> commit(true);
                 case "info" -> info(filename);
                 case "admin" -> displayFiles();
                 default -> System.out.println("Invalid command.");
             }
         }
+        this.isChecking = false;
         scanner.close();
+    }
+
+    public void backgroundRun() {
+        while (this.isChecking) {
+            this.commit(false);
+            try {
+                Thread.sleep(5000);
+            } catch (Exception e) {
+                System.out.println("Failed to sleep.");
+            }
+        }
     }
 
     private void status() {
@@ -105,8 +118,12 @@ public class Git {
         }
     }
 
-    private void commit() {
-        System.out.println("Commited at " + LocalDateTime.now());
+    private void commit(boolean type) {
+        if (type) {
+            System.out.println("Commited at " + LocalDateTime.now() + ".");
+        } else {
+            System.out.println("Auto commit at " + LocalDateTime.now() + ".");
+        }
         this.status();
         for (File file : this.resetQueue) {
             file.updateState();
@@ -116,6 +133,7 @@ public class Git {
         resetQueue.clear();
         deleteQueue.clear();
         this.currList = Arrays.copyOf(this.queueList, this.queueList.length);
+        System.out.print("> ");
     }
 
     private void info(String filename) {
