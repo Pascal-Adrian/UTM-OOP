@@ -29,6 +29,10 @@ public class File {
         return this.file;
     }
 
+    public String getExtension() {
+        return this.extension;
+    }
+
     public void updateState() {
         try {
             this.currentState = Files.readAllBytes(this.file.toPath());
@@ -55,7 +59,8 @@ public class File {
         switch (extension) {
             case ".txt" -> {return " (plain text file)";}
             case ".jpg", ".jpeg", ".png" -> {return " (image file)";}
-            case ".java" -> {return " (program file)";}
+            case ".java" -> {return " (Java program file)";}
+            case ".py" -> {return " (Python program file)";}
             default -> {return " (unknown file type)";}
         }
     }

@@ -16,6 +16,12 @@ public class ImageFile extends File{
         return super.getInfo() + "/Size/" + this.width + "x" + this.height + "px";
     }
 
+    @Override
+    public void updateState() {
+        super.updateState();
+        this.getImageDimensions();
+    }
+
     private void getImageDimensions() {
         try {
             BufferedImage image = ImageIO.read(super.getFile());

@@ -14,6 +14,11 @@ public class TextFile extends File {
         return super.getInfo() + "/Lines/" + this.lineCount + "/Words/" + this.wordCount + "/Characters/" + this.characterCount;
     }
 
+    public void updateState() {
+        super.updateState();
+        this.count();
+    }
+
     private void count() {
         try {
             java.io.FileReader fileReader = new java.io.FileReader(super.getFile());
@@ -33,6 +38,8 @@ public class TextFile extends File {
             this.lineCount = lines;
             this.characterCount = characters;
             this.wordCount = words;
+            fileReader.close();
+            bufferedReader.close();
         } catch (Exception e) {
             System.out.println("Failed to count lines, characters, and words.");
         }

@@ -155,7 +155,7 @@ public class Git {
                     switch (extension) {
                         case ".jpeg", ".jpg", ".png" -> this.addQueue.add(new ImageFile(fileName, extension, path));
                         case ".txt" -> this.addQueue.add(new TextFile(fileName, extension, path));
-                        case ".java" -> this.addQueue.add(new ProgramFile(fileName, extension, path));
+                        case ".java", ".py" -> this.addQueue.add(new ProgramFile(fileName, extension, path));
                         default -> this.addQueue.add(new File(fileName, extension, path));
                     }
                 }
