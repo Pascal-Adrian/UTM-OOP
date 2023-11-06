@@ -10,10 +10,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class something {
-
-}
-
 public class FacultyLoop {
     private final User user;
     private final Faculty faculty;

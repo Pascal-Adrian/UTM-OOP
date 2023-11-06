@@ -52,4 +52,13 @@ public class ArrayUpStack implements Stack {
     public boolean isFull() {
         return this.top == this.size - 1;
     }
+
+    public void print() {
+        for (int i = 0; i <= this.top; i++) {
+            System.out.println("[ ");
+            System.out.print(this.stack[i] + ", ");
+            System.out.println(" ]");
+        }
+        System.out.println();
+    }
 }
