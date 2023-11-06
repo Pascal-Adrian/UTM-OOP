@@ -16,7 +16,7 @@ public class Main {
         runThread.start();
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(git::backgroundRun, 0, 5, TimeUnit.SECONDS);
+//        executorService.scheduleAtFixedRate(git::backgroundRun, 0, 5, TimeUnit.SECONDS);
 
         try {
             runThread.join();

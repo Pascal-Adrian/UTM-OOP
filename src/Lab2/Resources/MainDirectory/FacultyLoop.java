@@ -1,4 +1,4 @@
-package Lab2.Resources.HoldingDirectory;
+package Lab2.Resources.MainDirectory;
 
 import Lab1.Behavior.FileManager;
 import Lab1.Behavior.LogManager;
@@ -9,6 +9,10 @@ import Lab1.Models.Student;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+
+public class something {
+
+}
 
 public class FacultyLoop {
     private final User user;
