@@ -5,5 +5,4 @@ public interface Stack {
     int pop();
     int peek();
     boolean isEmpty();
-    boolean isFull();
 }

@@ -48,7 +48,6 @@ public class ArrayDownStack implements Stack {
         return this.free == this.size - 1;
     }
 
-    @Override
     public boolean isFull() {
         return this.free == -1;
     }
@@ -58,7 +57,7 @@ public class ArrayDownStack implements Stack {
         for (int i = this.free + 1; i < this.size; i++) {
             System.out.print(this.stack[i] + " ");
         }
-        System.out.println(" ]\n");
+        System.out.println("]\n");
     }
 }
 

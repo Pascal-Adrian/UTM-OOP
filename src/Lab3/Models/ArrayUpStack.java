@@ -48,7 +48,6 @@ public class ArrayUpStack implements Stack {
         return this.top == -1;
     }
 
-    @Override
     public boolean isFull() {
         return this.top == this.size - 1;
     }
@@ -58,6 +57,6 @@ public class ArrayUpStack implements Stack {
         for (int i = 0; i <= this.top; i++) {
             System.out.print(this.stack[i] + " ");
         }
-        System.out.println(" ]\n");
+        System.out.println("]\n");
     }
 }

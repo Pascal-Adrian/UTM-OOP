@@ -2,12 +2,13 @@ package Lab3;
 
 import Lab3.Models.ArrayDownStack;
 import Lab3.Models.ArrayUpStack;
+import Lab3.Models.LinkedListStack;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayDownStack stack = new ArrayDownStack(5);
+        LinkedListStack stack = new LinkedListStack();
         Scanner scanner = new Scanner(System.in);
         String message = "";
         while (!message.equals("q")) {
