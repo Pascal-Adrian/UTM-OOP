@@ -1,13 +1,13 @@
 package Lab3.Models;
 
-public class ArrayUpStack implements Stack {
-    private int[] stack;
-    private int top;
-    private int size;
+public class ArrayDownStack implements Stack {
+    int[] stack;
+    int free;
+    int size;
 
-    public ArrayUpStack(int size) {
+    public ArrayDownStack(int size) {
         this.stack = new int[size];
-        this.top = -1;
+        this.free = size - 1;
         this.size = size;
     }
 
@@ -16,8 +16,8 @@ public class ArrayUpStack implements Stack {
         if (this.isFull()) {
             System.out.println("Stack is full.");
         } else {
-            this.top += 1;
-            this.stack[this.top] = value;
+            this.stack[this.free] = value;
+            this.free -= 1;
         }
     }
 
@@ -27,8 +27,8 @@ public class ArrayUpStack implements Stack {
             System.out.println("Stack is empty.");
             return -1;
         } else {
-            int value = this.stack[this.top];
-            this.top -= 1;
+            int value = this.stack[this.free + 1];
+            this.free += 1;
             return value;
         }
     }
@@ -39,25 +39,26 @@ public class ArrayUpStack implements Stack {
             System.out.println("Stack is empty.");
             return -1;
         } else {
-            return this.stack[this.top];
+            return this.stack[this.free + 1];
         }
     }
 
     @Override
     public boolean isEmpty() {
-        return this.top == -1;
+        return this.free == this.size - 1;
     }
 
     @Override
     public boolean isFull() {
-        return this.top == this.size - 1;
+        return this.free == -1;
     }
 
     public void print() {
         System.out.print("[ ");
-        for (int i = 0; i <= this.top; i++) {
+        for (int i = this.free + 1; i < this.size; i++) {
             System.out.print(this.stack[i] + " ");
         }
         System.out.println(" ]\n");
     }
 }
+
