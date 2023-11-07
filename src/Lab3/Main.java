@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayUpQueue stack = new ArrayUpQueue(5);
+        LinkedListQueue stack = new LinkedListQueue();
         Scanner scanner = new Scanner(System.in);
         String message = "";
         while (!message.equals("q")) {
