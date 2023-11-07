@@ -62,10 +62,11 @@ public class LinkedListStack implements Stack {
     public void print() {
         Node current = this.last;
         System.out.print("[ ");
+        String values = "";
         while (current != null) {
-            System.out.print(current.value + " ");
+            values = current.value + " " + values;
             current = current.next;
         }
-        System.out.println("]\n");
+        System.out.println(values + "]\n");
     }
 }

@@ -2,23 +2,23 @@ package Lab3.Models;
 
 public class ArrayDownQueue implements Queue {
     int[] queue;
-    int tail;
+    int head;
     int size;
 
     public ArrayDownQueue(int size) {
         this.queue = new int[size];
-        this.tail = size - 1;
+        this.head = size - 1;
         this.size = size;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.tail == size - 1;
+        return this.head == size - 1;
     }
 
     @Override
     public boolean isFull() {
-        return this.tail == - 1;
+        return this.head == - 1;
     }
 
     @Override
@@ -26,8 +26,8 @@ public class ArrayDownQueue implements Queue {
         if (this.isFull()) {
             System.out.println("Queue is full.");
         } else {
-            this.queue[this.tail] = value;
-            this.tail -= 1;
+            this.queue[this.head] = value;
+            this.head -= 1;
         }
     }
 
@@ -38,10 +38,10 @@ public class ArrayDownQueue implements Queue {
             return -1;
         } else {
             int value = this.queue[this.size - 1];
-            for (int i = this.size - 1; i > this.tail + 1; i--) {
+            for (int i = this.size - 1; i > this.head + 1; i--) {
                 this.queue[i] = this.queue[i - 1];
             }
-            this.tail += 1;
+            this.head += 1;
             return value;
         }
     }
@@ -59,7 +59,7 @@ public class ArrayDownQueue implements Queue {
     @Override
     public void print() {
         System.out.print("[ ");
-        for (int i = this.tail + 1; i < this.size; i++) {
+        for (int i = this.size - 1; i > this.head; i--) {
             System.out.print(this.queue[i] + " ");
         }
         System.out.println("]\n");
