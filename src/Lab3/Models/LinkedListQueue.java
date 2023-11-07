@@ -2,8 +2,11 @@ package Lab3.Models;
 
 public class LinkedListQueue implements Queue {
     private Node head;
+    private int maxSize;
+    private int size;
 
-    public LinkedListQueue() {
+    public LinkedListQueue(int size) {
+        this.maxSize = size;
         this.head = null;
     }
 
@@ -13,7 +16,16 @@ public class LinkedListQueue implements Queue {
     }
 
     @Override
+    public boolean isFull() {
+        return this.size == this.maxSize;
+    }
+
+    @Override
     public void enqueue(int value) {
+        if (this.isFull()) {
+            System.out.println("Queue is full.");
+            return;
+        }
         Node newNode = new Node();
         newNode.variable(value);
         if (this.isEmpty()) {
@@ -25,10 +37,12 @@ public class LinkedListQueue implements Queue {
             }
             current.next = newNode;
         }
+        size += 1;
     }
 
     @Override
     public int dequeue() {
+        this.size -= 1;
         if (this.isEmpty()) {
             System.out.println("Queue is empty.");
             return -1;

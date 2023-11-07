@@ -16,6 +16,7 @@ public class ArrayUpQueue implements Queue {
         return this.tail == -1;
     }
 
+    @Override
     public boolean isFull() {
         return this.tail == this.size - 1;
     }

@@ -3,8 +3,12 @@ package Lab3.Models;
 public class LinkedListStack implements Stack {
 
     private Node last;
+    private int maxSize;
+    private int size;
 
-    public LinkedListStack() {
+
+    public LinkedListStack(int size) {
+        this.maxSize = size;
         this.last = null;
     }
 
@@ -14,15 +18,26 @@ public class LinkedListStack implements Stack {
     }
 
     @Override
+    public boolean isFull() {
+        return this.size == this.maxSize;
+    }
+
+    @Override
     public void push(int value) {
+        if (this.isFull()) {
+            System.out.println("Stack is full.");
+            return;
+        }
         Node newNode = new Node();
         newNode.variable(value);
         newNode.next(this.last);
         this.last = newNode;
+        size += 1;
     }
 
     @Override
     public int pop() {
+        this.size -= 1;
         if (this.isEmpty()) {
             System.out.println("Stack is empty.");
             return -1;

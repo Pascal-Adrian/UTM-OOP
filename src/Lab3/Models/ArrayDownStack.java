@@ -16,6 +16,7 @@ public class ArrayDownStack implements Stack {
         return this.free == this.size - 1;
     }
 
+    @Override
     public boolean isFull() {
         return this.free == -1;
     }
