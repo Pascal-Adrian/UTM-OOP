@@ -12,6 +12,15 @@ public class ArrayUpStack implements Stack {
     }
 
     @Override
+    public boolean isEmpty() {
+        return this.top == -1;
+    }
+
+    public boolean isFull() {
+        return this.top == this.size - 1;
+    }
+
+    @Override
     public void push(int value) {
         if (this.isFull()) {
             System.out.println("Stack is full.");
@@ -41,15 +50,6 @@ public class ArrayUpStack implements Stack {
         } else {
             return this.stack[this.top];
         }
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.top == -1;
-    }
-
-    public boolean isFull() {
-        return this.top == this.size - 1;
     }
 
     public void print() {

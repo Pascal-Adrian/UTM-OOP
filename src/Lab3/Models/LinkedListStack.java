@@ -1,28 +1,21 @@
 package Lab3.Models;
 
 public class LinkedListStack implements Stack {
-    private class node {
-        int value;
-        node next;
 
-        public void variable(int value) {
-            this.value = value;
-        }
-
-        public void next(node next) {
-            this.next = next;
-        }
-    }
-
-    private node last;
+    private Node last;
 
     public LinkedListStack() {
         this.last = null;
     }
 
     @Override
+    public boolean isEmpty() {
+        return this.last == null;
+    }
+
+    @Override
     public void push(int value) {
-        node newNode = new node();
+        Node newNode = new Node();
         newNode.variable(value);
         newNode.next(this.last);
         this.last = newNode;
@@ -50,13 +43,8 @@ public class LinkedListStack implements Stack {
         }
     }
 
-    @Override
-    public boolean isEmpty() {
-        return this.last == null;
-    }
-
     public void print() {
-        node current = this.last;
+        Node current = this.last;
         System.out.print("[ ");
         while (current != null) {
             System.out.print(current.value + " ");

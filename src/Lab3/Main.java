@@ -1,6 +1,7 @@
 package Lab3;
 
 import Lab3.Models.ArrayDownStack;
+import Lab3.Models.ArrayUpQueue;
 import Lab3.Models.ArrayUpStack;
 import Lab3.Models.LinkedListStack;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedListStack stack = new LinkedListStack();
+        ArrayUpQueue stack = new ArrayUpQueue(5);
         Scanner scanner = new Scanner(System.in);
         String message = "";
         while (!message.equals("q")) {
@@ -16,17 +17,17 @@ public class Main {
             String[] input = scanner.nextLine().split(" ");
             message = input[0];
             switch (message) {
-                case "push" -> {
+                case "enqueue" -> {
                     if (input.length < 2) {
                         System.out.println("No value provided.");
                         break;
                     }
                     int value = Integer.parseInt(input[1]);
-                    stack.push(value);
+                    stack.enqueue(value);
                     stack.print();
                 }
-                case "pop" -> {
-                    int value = stack.pop();
+                case "dequeue" -> {
+                    int value = stack.dequeue();
                     System.out.println(value);
                     stack.print();
                 }
