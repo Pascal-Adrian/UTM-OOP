@@ -56,6 +56,7 @@ public class ArrayDownQueue implements Queue {
         }
     }
 
+    @Override
     public void print() {
         System.out.print("[ ");
         for (int i = this.tail + 1; i < this.size; i++) {

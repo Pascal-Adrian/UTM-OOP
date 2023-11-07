@@ -6,4 +6,5 @@ public interface Stack {
     int peek();
     boolean isEmpty();
     boolean isFull();
+    void print();
 }

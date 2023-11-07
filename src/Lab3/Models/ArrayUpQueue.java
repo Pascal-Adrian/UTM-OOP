@@ -56,6 +56,7 @@ public class ArrayUpQueue implements Queue {
         }
     }
 
+    @Override
     public void print() {
         System.out.print("[ ");
         for (int i = 0; i <= this.tail; i++) {

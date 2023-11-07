@@ -58,6 +58,7 @@ public class LinkedListStack implements Stack {
         }
     }
 
+    @Override
     public void print() {
         Node current = this.last;
         System.out.print("[ ");

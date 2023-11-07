@@ -6,4 +6,5 @@ public interface Queue {
     int peek();
     boolean isEmpty();
     boolean isFull();
+    void print();
 }

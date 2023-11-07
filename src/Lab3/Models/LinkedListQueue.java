@@ -63,6 +63,7 @@ public class LinkedListQueue implements Queue {
         }
     }
 
+    @Override
     public void print() {
         Node current = this.head;
         System.out.print("[ ");

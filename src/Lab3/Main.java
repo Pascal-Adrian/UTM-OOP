@@ -1,41 +1,27 @@
 package Lab3;
 
+import Lab3.Behaviour.StacksTest;
 import Lab3.Models.*;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedListStack stack = new LinkedListStack(5);
         Scanner scanner = new Scanner(System.in);
         String message = "";
         while (!message.equals("q")) {
+            System.out.println("1. ArrayUpStack\n2. ArrayDownStack\n3. LinkedListStack\n");
             System.out.print("> ");
-            String[] input = scanner.nextLine().split(" ");
-            message = input[0];
+            message = scanner.nextLine();
             switch (message) {
-                case "push" -> {
-                    if (input.length < 2) {
-                        System.out.println("No value provided.");
-                        break;
-                    }
-                    int value = Integer.parseInt(input[1]);
-                    stack.push(value);
-                    stack.print();
+                case "1", "2", "3" -> {
+                    StacksTest stacksTest = new StacksTest(Integer.parseInt(message));
+                    stacksTest.run();
                 }
-                case "pop" -> {
-                    int value = stack.pop();
-                    System.out.println(value);
-                    stack.print();
-                }
-                case "peek" -> {
-                    int value = stack.peek();
-                    System.out.println(value);
-                    stack.print();
-                }
-                case "q" -> System.out.println("Exiting...");
+                case "q" -> System.out.println("Shutting down...");
                 default -> System.out.println("Invalid command.");
             }
         }
+        scanner.close();
     }
 }

@@ -53,6 +53,7 @@ public class ArrayUpStack implements Stack {
         }
     }
 
+    @Override
     public void print() {
         System.out.print("[ ");
         for (int i = 0; i <= this.top; i++) {

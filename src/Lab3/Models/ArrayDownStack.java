@@ -53,6 +53,7 @@ public class ArrayDownStack implements Stack {
         }
     }
 
+    @Override
     public void print() {
         System.out.print("[ ");
         for (int i = this.free + 1; i < this.size; i++) {
