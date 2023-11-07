@@ -1,9 +1,6 @@
 package Lab3;
 
-import Lab3.Models.ArrayDownStack;
-import Lab3.Models.ArrayUpQueue;
-import Lab3.Models.ArrayUpStack;
-import Lab3.Models.LinkedListStack;
+import Lab3.Models.*;
 
 import java.util.Scanner;
 
